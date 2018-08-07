@@ -11,6 +11,7 @@
     <modules>
         <module>BaseTool</module>
         <module>BaseManage</module>
+        <module>BaseWeb</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->
@@ -46,7 +47,6 @@
         <quartz.version>2.2.2</quartz.version>
         <log4j-core.version>2.9.1</log4j-core.version>
         <pagehelper.version>5.0.0</pagehelper.version>
-
     </properties>
 
     <!-- 集中定义依赖管理的jar包 -->

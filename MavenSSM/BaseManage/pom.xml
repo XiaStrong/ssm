@@ -16,7 +16,6 @@
         <module>BaseManage-pojo</module>
         <module>BaseManage-service</module>
         <module>BaseManage-api</module>
-        <module>BaseManage-web</module>
     </modules>
 
     <dependencies>

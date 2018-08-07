@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://code.alibabatech.com/schema/dubbo
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 启用spring mvc 注解 -->
+    <!--<context:annotation-config />-->
+
+    <!-- 扫描所有的controller -->
+    <context:component-scan base-package="com.x.controller"/>
+
+    <!--配置这个aspectj才会起作用-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <!-- 不处理静态资源 -->
+    <mvc:default-servlet-handler />
+
+    <!-- 使用默认的配置管理HandleMapping和HandleAdapter等，
+    	即spring的核心处理机制，如果需要自定义，可以手动配置HandleMapping和HandleAdapter -->
+    <mvc:annotation-driven />
+
+    <!-- 配置视图的位置（即前缀和后缀），若是单独只是jsp的这样配置即可 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          id="internalResourceViewResolver">
+        <!-- 前缀 -->
+        <property name="prefix" value="/WEB-INF/web/" />
+        <!-- 后缀 -->
+        <!--<property name="suffix" value=".jsp" />-->
+    </bean>
+
+    <!-- 引用dubbo服务 -->
+    <dubbo:application name="base-web"/>
+
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+
+    <dubbo:reference interface="com.x.api.UserService" id="userServiceImpl" />
+
+    <!--<dubbo:annotation package="com.x.controller"></dubbo:annotation>-->
+
+
+</beans>
