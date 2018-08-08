@@ -5,8 +5,8 @@
         <!-- 打印查询语句 -->
         <setting name="logImpl" value="STDOUT_LOGGING" />
         <!--设置延时加载，好像没什么卵用-->
-        <setting name="lazyLoadingEnabled" value="true"></setting>
-        <setting name="aggressiveLazyLoading" value="false"></setting>
+        <!--<setting name="lazyLoadingEnabled" value="true"></setting>-->
+        <!--<setting name="aggressiveLazyLoading" value="false"></setting>-->
     </settings>
 
 </configuration>

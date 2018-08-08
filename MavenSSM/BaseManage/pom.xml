@@ -14,8 +14,8 @@
     <modules>
         <module>BaseManage-dao</module>
         <module>BaseManage-pojo</module>
-        <module>BaseManage-service</module>
         <module>BaseManage-api</module>
+        <module>BaseManage-service</module>
     </modules>
 
     <dependencies>

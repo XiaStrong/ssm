@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class UsersController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -19,5 +19,6 @@ public class UsersController {
         Users users = this.userService.findById(id);
         return users;
     }
+
 
 }

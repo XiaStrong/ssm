@@ -18,12 +18,7 @@
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- 扫描包下面的所有的类是否受spring的管理，需要spring创建对象 -->
-    <context:component-scan base-package="com.x">
-        <!-- 不包含@Controller注解和@ControllerAdvice注解（配置全局异常处理的）
-            （因为spring-mvc里面已经扫描并管理了，所以为了避免重复管理，应该排除） -->
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-    </context:component-scan>
+    <context:component-scan base-package="com.x.service"></context:component-scan>
 
     <!-- 配置config.properties的文件路径 -->
     <context:property-placeholder location="classpath:config.properties"/>
@@ -88,7 +83,7 @@
     <dubbo:application name="base-manage" />
     <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
     <!-- 用dubbo协议在20880端口暴露服务 -->
-    <dubbo:protocol name="dubbo" port="20880" />
+    <dubbo:protocol name="dubbo" port="20881" />
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.x.api.UserService" ref="userServiceImpl" />
 
