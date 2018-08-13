@@ -19,7 +19,7 @@
   <!-- spring.xml文件的路径配置 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationContext.xml</param-value>
+    <param-value>classpath:applicationContext.xml,classpath:quartz.xml</param-value>
   </context-param>
 
 

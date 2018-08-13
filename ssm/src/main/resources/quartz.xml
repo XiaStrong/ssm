@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    ">
+
+    <!-- 配置作业类 -->
+    <bean id="myJob" class="com.x.entity.MyJob"></bean>
+
+    <!-- jobDetail方法一MethodInvokingJobDetailFactoryBean：直接指定任务类和任务方法-->
+    <bean id="myMethodJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="myJob"></property>
+        <property name="targetMethod" value="printMessage"></property>
+    </bean>
+
+    <!-- 方法二 -->
+    <bean id="myJobDetail2" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!-- 必须配置jobClass 使用value指定作业(任务)类  任务类需要继承QuartzJobBean-->
+        <property name="jobClass" value="com.x.entity.MyQuartzJob"></property>
+        <property name="name" value="myJob2"></property>
+        <property name="group" value="group2"></property>
+        <!-- durability必须配置-->
+        <property name="durability" value="true"></property>
+    </bean>
+
+    <!--SimpleTriggerFactoryBean：简单触发器-->
+    <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+        <property name="name" value="myTrigger"></property>
+        <property name="group" value="group1"></property>
+        <!-- 指定触发器触发的任务类 -->
+        <property name="jobDetail" ref="myMethodJobDetail"></property>
+        <!--什么时候开始执行此处是1s-->
+        <property name="startDelay" value="1000"></property>
+        <!-- 指定执行周期 此处是5s -->
+        <property name="repeatInterval" value="5000"></property>
+    </bean>
+
+    <!-- CornTriggerFactoryBean -->
+    <bean id="myCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="myJobDetail2"></property>
+        <property name="name" value="myCronTrigger"></property>
+        <property name="group" value="group2"></property>
+        <!-- 指定 corn表达式 2018年每天12点钟每5秒执行一次-->
+        <property name="cronExpression" value="0/5 * 17 * * ? 2018"></property>
+    </bean>
+
+    <!--  配置调度器SchedulerFactoryBean-->
+    <bean id="schedule" class=" org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- 指定任务 -->
+        <property name="jobDetails">
+            <list>
+                <!--<ref bean="myJobDetail2" />-->
+                <ref bean="myMethodJobDetail"/>
+            </list>
+        </property>
+        <!-- 指定触发器列表 -->
+        <property name="triggers">
+            <list>
+                <!--<ref bean="myCronTrigger" />-->
+                <ref bean="simpleTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="schedule2" class=" org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- 指定任务 -->
+        <property name="jobDetails">
+            <list>
+                <ref bean="myJobDetail2" />
+            </list>
+        </property>
+        <!-- 指定触发器列表 -->
+        <property name="triggers">
+            <list>
+                <ref bean="myCronTrigger" />
+            </list>
+        </property>
+    </bean>
+
+
+
+
+
+</beans>
