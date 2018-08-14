@@ -19,6 +19,18 @@
     <!-- 不处理静态资源 -->
     <mvc:default-servlet-handler />
 
+
+    <!--第二种解决@ResponseBody 返回为字符串的不出现乱码的方法，不加这段，返回字符串会出现乱码-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+            </list>
+        </property>
+    </bean>
+
+
+
     <!-- 使用默认的配置管理HandleMapping和HandleAdapter等，
     	即spring的核心处理机制，如果需要自定义，可以手动配置HandleMapping和HandleAdapter -->
     <mvc:annotation-driven />
